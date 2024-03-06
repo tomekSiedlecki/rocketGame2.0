@@ -4,7 +4,7 @@
     {
         public static void Main()
         {
-            Console.WriteLine("start");
+            List<Entity> entities = new List<Entity>();
         }
     }
 }
