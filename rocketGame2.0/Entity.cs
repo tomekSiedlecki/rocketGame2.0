@@ -1,6 +1,6 @@
-﻿using rocketGame2._0;
+﻿using System.Runtime.ExceptionServices;
 
-namespace rocketGame
+namespace rocketGame2._0
 {
     class Entity
     {
@@ -22,7 +22,7 @@ namespace rocketGame
             Width = getWidth();
         }
 
-        private int getWidth()
+        public int getWidth()
         {
             int widest = 0;
             foreach (var item in View)
@@ -32,7 +32,6 @@ namespace rocketGame
             }
             return widest;
         }
-
         public int getLineWidth(string line)
         {
             int count = 0;
@@ -55,6 +54,79 @@ namespace rocketGame
             }
             return count;
         }
+
+        public virtual void onContact()
+        {
+
+        }
+
+        public bool ifContact(Entity entity)
+        {
+            bool ifcontact = false;
+
+            Entity first = this;
+            Entity second = entity;
+
+            //wyzej jest entity
+            if (entity.Y < Y)
+            {
+                first = entity;
+                second = this;
+            }
+
+            if(first.Y + first.Height - 1 < second.Y)
+            {
+                // tutaj ifcontact = false
+                return ifcontact;
+            }
+
+            int yCounter = second.Y;
+            for(int i = 0; i < second.Height; i++)
+            {
+                if(yCounter - first.Y >= first.Height)
+                {
+                    break;
+                }
+                string lineFirst = first.View.ElementAt(yCounter - first.Y);
+                string lineSecond = second.View.ElementAt(i);
+
+                bool ifStartedSpaces = false;
+                int xIterator = first.X;
+                foreach (var singleLetter in lineFirst)
+                {
+                    if (singleLetter != Consts.background)
+                    {
+                        ifStartedSpaces = true;
+
+                        //nie wychodzi poza zakres stringa
+                        if(xIterator >= second.X && xIterator <= second.X + second.Height - 1)
+                        {
+                            var element = lineSecond.ElementAt(xIterator - second.X);
+                            if(element != Consts.background)
+                            {
+                                ifcontact = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (ifStartedSpaces)
+                        {
+                            break;
+                        }
+                    }
+                    xIterator++;
+                }
+
+                yCounter++;
+            }
+
+
+
+            return ifcontact;
+        }
+
+
 
     }
 }
