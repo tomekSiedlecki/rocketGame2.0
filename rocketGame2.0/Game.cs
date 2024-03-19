@@ -13,11 +13,13 @@ namespace rocketGame2._0
         public List<Entity> entities;
         public Display display;
         public Ship ship;
+        public EntitiesManagement entitiesManagement;
 
         public void Setup()
         {
             entities = new List<Entity>();
             display = new Display();
+            entitiesManagement = new EntitiesManagement();
 
             List<string> shipView = new List<string>();
             shipView.Add(" ^ ");
@@ -34,12 +36,14 @@ namespace rocketGame2._0
             Console.WriteLine("running");
             var display = Display();
             var colision = Colision();
-            var move = Move();
+            var spawnAndMove = SpawnAndMove();
+            var moveShip = MoveShip();
 
 
             await display;
             await colision;
-            await move;
+            await spawnAndMove;
+            await moveShip;
         }
 
         private async Task Display()
@@ -57,7 +61,7 @@ namespace rocketGame2._0
             
         }
 
-        private async Task Move()
+        private async Task MoveShip()
         {
             while(true)
             {
@@ -70,6 +74,22 @@ namespace rocketGame2._0
                 {
                     ship.MoveRight();
                 }
+            }
+        }
+        private async Task SpawnAndMove()
+        {
+            while (true)
+            {
+                entitiesManagement.MoveObjects(entities);
+                await Task.Delay(1000);
+                entitiesManagement.MoveObjects(entities);
+                await Task.Delay(1000);
+                entitiesManagement.MoveObjects(entities);
+                await Task.Delay(1000);
+                entitiesManagement.SpawnObjects(entities);
+                entitiesManagement.MoveObjects(entities);
+                await Task.Delay(1000);
+
             }
         }
     }

@@ -12,7 +12,7 @@ namespace rocketGame2._0
         public const int boardHeight = 10;
         public const int boardWidth = 10;
 
-        public const char background = '-';
+        public const char background = ' ';
 
         public const ConsoleKey leftControlKey = ConsoleKey.A;
         public const ConsoleKey rightControlKey = ConsoleKey.D;
