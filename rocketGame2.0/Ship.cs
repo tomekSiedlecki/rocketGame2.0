@@ -15,5 +15,26 @@ namespace rocketGame2._0
             //nie moge zrobic tego w kostruktorze base
             this.X = (Consts.boardWidth/2) - (Width/2);
         }
+
+        public override void onContact(List<Entity> entities)
+        {
+            Console.WriteLine("ship contact");
+        }
+
+        public void MoveLeft()
+        {
+            if(X > 0)
+            {
+                X--;
+            }
+        }
+
+        public void MoveRight()
+        {
+            if (X + Width < Consts.boardWidth)
+            {
+                X++;
+            }
+        }
     }
 }

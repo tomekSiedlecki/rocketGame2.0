@@ -55,7 +55,7 @@ namespace rocketGame2._0
             return count;
         }
 
-        public virtual void onContact()
+        public virtual void onContact(List<Entity> entities)
         {
 
         }
