@@ -120,9 +120,6 @@ namespace rocketGame2._0
 
                 yCounter++;
             }
-
-
-
             return ifcontact;
         }
 

@@ -56,9 +56,6 @@ namespace rocketGame
                     }
                     x++;
                 }
-
-
-
             }
             line = new string(charArray);
             return line;

@@ -24,7 +24,6 @@ namespace rocketGame2._0
             List<string> shipView = new List<string>();
             shipView.Add(" ^ ");
             shipView.Add("^*^");
-            shipView.Add("***");
             ship = new Ship(shipView);
 
             entities.Add(ship);
@@ -38,7 +37,6 @@ namespace rocketGame2._0
             var colision = Colision();
             var spawnAndMove = SpawnAndMove();
             var moveShip = MoveShip();
-
 
             await display;
             await colision;
@@ -58,7 +56,14 @@ namespace rocketGame2._0
 
         private async Task Colision()
         {
-            
+            while (true)
+            {
+                if (entitiesManagement.ifDied(entities, ship))
+                {
+                    Console.WriteLine("CONTACT");
+                }
+                await Task.Delay(50);
+            }
         }
 
         private async Task MoveShip()
