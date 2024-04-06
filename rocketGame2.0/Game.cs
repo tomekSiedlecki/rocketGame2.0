@@ -14,9 +14,15 @@ namespace rocketGame2._0
         public Display display;
         public Ship ship;
         public EntitiesManagement entitiesManagement;
+        public int score;
+
+        public CancellationTokenSource cancellationTokenSource;
+        public bool gameEnded;
 
         public void Setup()
         {
+            cancellationTokenSource = new CancellationTokenSource();
+
             entities = new List<Entity>();
             display = new Display();
             entitiesManagement = new EntitiesManagement();
@@ -27,6 +33,10 @@ namespace rocketGame2._0
             ship = new Ship(shipView);
 
             entities.Add(ship);
+
+            gameEnded = false;
+
+            score = 0;
         }
 
         public async Task Run()
@@ -46,9 +56,10 @@ namespace rocketGame2._0
 
         private async Task Display()
         {
-            while (true)
+            while (!gameEnded)
             {
                 Console.Clear();
+                Console.WriteLine("SCORE: " + score);
                 display.DisplayBoard(entities);
                 await Task.Delay(Consts.displayRefreshRate);
             }
@@ -56,11 +67,11 @@ namespace rocketGame2._0
 
         private async Task Colision()
         {
-            while (true)
+            while (!gameEnded)
             {
-                if (entitiesManagement.ifDied(entities, ship))
+                if(entitiesManagement.ifDied(entities, ship))
                 {
-                    Console.WriteLine("CONTACT");
+                   gameEnded = true;
                 }
                 await Task.Delay(50);
             }
@@ -68,33 +79,37 @@ namespace rocketGame2._0
 
         private async Task MoveShip()
         {
-            while(true)
+            while (!gameEnded)
             {
-                var keyPressed = Console.ReadKey(true);
-                if(keyPressed.Key == Consts.leftControlKey)
+                if (Console.KeyAvailable)
                 {
-                    ship.MoveLeft();
-                }
-                else if (keyPressed.Key == Consts.rightControlKey)
-                {
-                    ship.MoveRight();
+                    var keyPressed = Console.ReadKey(true);
+                    if (keyPressed.Key == Consts.leftControlKey)
+                    {
+                        ship.MoveLeft();
+                    }
+                    else if (keyPressed.Key == Consts.rightControlKey)
+                    {
+                        ship.MoveRight();
+                    }
                 }
             }
         }
         private async Task SpawnAndMove()
         {
-            while (true)
+            int counter = 0;
+            while (!gameEnded)
             {
                 entitiesManagement.MoveObjects(entities);
+                if(counter % 3 ==0)
+                {
+                    entitiesManagement.SpawnObjects(entities);
+                    counter = 0;
+                }
                 await Task.Delay(1000);
-                entitiesManagement.MoveObjects(entities);
-                await Task.Delay(1000);
-                entitiesManagement.MoveObjects(entities);
-                await Task.Delay(1000);
-                entitiesManagement.SpawnObjects(entities);
-                entitiesManagement.MoveObjects(entities);
-                await Task.Delay(1000);
-
+                score++;
+                counter++;
+                
             }
         }
     }

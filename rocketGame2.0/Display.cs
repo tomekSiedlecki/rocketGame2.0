@@ -11,6 +11,8 @@ namespace rocketGame
     {
         public void DisplayBoard(List<Entity> entities)
         {
+            Console.WriteLine("╔" + new String('═', Consts.boardWidth) + "╗");
+
             List<Entity> inRendering = new List<Entity>();
 
             for(int i = 0; i < Consts.boardHeight; i++) 
@@ -23,8 +25,10 @@ namespace rocketGame
                     }
                 }
                 DeleteItems(inRendering, i);
-                Console.WriteLine(CreateLine(inRendering, i));
+                Console.WriteLine("║" + CreateLine(inRendering, i) + "║");
             }
+
+            Console.WriteLine("╚" + new String('═', Consts.boardWidth) + "╝");
         }
 
         public string CreateLine(List<Entity> inRendering, int y)
@@ -42,6 +46,15 @@ namespace rocketGame
                 bool ifStartedSpaces = false;
                 foreach (var singleLetter in entityLineString)
                 {
+                    if(x < 0)
+                    {
+                        x++;
+                        continue;
+                    }
+                    if(x > Consts.boardWidth - 1)
+                    {
+                        break;
+                    }
                     if (singleLetter != Consts.background)
                     {
                         ifStartedSpaces = true;

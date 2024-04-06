@@ -12,11 +12,9 @@ namespace rocketGame2._0
         public void SpawnObjects(List<Entity> entities)
         {
             Random rnd = new Random();
-            List<string> view = new List<string>();
-            view.Add("00");
-            view.Add("00");
-            Entity entity = new Entity(view, rnd.Next(0,Consts.boardWidth - 1), 0);
 
+            List<string> view = Consts.asteroidTypes.ElementAt(rnd.Next(0, Consts.asteroidTypes.Count));
+            Asteroid entity = new Asteroid(view, rnd.Next(0, Consts.boardWidth), 0);
             entities.Add(entity);
         }
         public void MoveObjects(List<Entity> entities)
@@ -55,6 +53,7 @@ namespace rocketGame2._0
                 if(ship.ifContact(item) == true)
                 {
                     result = true;
+                    item.onContact(entities);
                     break;
                 }
 
