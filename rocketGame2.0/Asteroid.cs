@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace rocketGame2._0
 {
-    class Asteroid : Entity
+    public class Asteroid : Entity
     {
         public Asteroid(List<string> View, int X, int Y) : base(View, X, Y)
         {

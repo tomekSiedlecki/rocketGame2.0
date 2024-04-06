@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace rocketGame2._0
 {
-    static class Consts
+    public static class Consts
     {
         public const int boardHeight = 10;
         public const int boardWidth = 10;

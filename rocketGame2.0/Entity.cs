@@ -2,7 +2,7 @@
 
 namespace rocketGame2._0
 {
-    class Entity
+    public class Entity
     {
         public List<string> View { get; set; }
 

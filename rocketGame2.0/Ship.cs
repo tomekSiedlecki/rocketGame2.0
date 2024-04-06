@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace rocketGame2._0
 {
-    class Ship : Entity
+    public class Ship : Entity
     {
         public Ship(List<string> View, int X = Consts.boardWidth / 2, int Y = Consts.boardHeight / 2)
             : base(View,X, Y)

@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\rocketGame2.0\rocketGame2.0.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,4 @@
-﻿using rocketGame2._0;
-using System.Security.Cryptography.X509Certificates;
-
-namespace rocketGame
+﻿namespace rocketGame2._0
 {
     class Program
     {

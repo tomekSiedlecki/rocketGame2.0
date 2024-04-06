@@ -7,7 +7,7 @@ using System.Xml.XPath;
 
 namespace rocketGame2._0
 {
-    class EntitiesManagement
+    public class EntitiesManagement
     {
         public void SpawnObjects(List<Entity> entities)
         {
